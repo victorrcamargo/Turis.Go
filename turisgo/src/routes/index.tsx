@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router';
 import { Layout } from "../components/layout/layout";
 import { HomePage } from "../pages/HomePage";
 import { NotFound } from '../pages/NotFound';
+import NewAttraction from '../components/NewAttraction/NewAttraction';
 
 export const router = createBrowserRouter([
 	{
@@ -9,7 +10,8 @@ export const router = createBrowserRouter([
 		element: <Layout />,
 		children: [
 			{ index: true, element: <HomePage /> },
-			{ path: "notfound", element: <NotFound /> }
+			{ path: "notfound", element: <NotFound /> },
+			{ path: "pontos/novo", element: <NewAttraction /> }
 		],
 	}
 ]);

@@ -1,0 +1,10 @@
+Campos criar ponto
+
+-> Nome
+-> Localizacao
+-> UF/Cidade (Select estados + campo cidade)
+-> Referencia
+-> Descritivo
+
+
+-> Adicionar campo para foto
