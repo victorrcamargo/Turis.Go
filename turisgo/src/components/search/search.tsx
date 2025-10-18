@@ -1,19 +1,42 @@
 import { useState, type FormEvent } from "react"
 import { useNavigate } from "react-router";
+import type { AttractionType } from "../../types/Attraction";
 
 function SearchBar() {
-	const [query, setQuery] = useState("");
 	const navigate = useNavigate();
+	const [query, setQuery] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
-	const handleSubmit = (e: FormEvent) => {
+	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
 		const trimmed = query.trim();
 		if (!trimmed) return;
 
-		navigate("/notfound");
+		setIsLoading(true);
 
-		// navigate(`/pontos?busca=${encodeURIComponent(trimmed)}`);
+		try {
+			const response = await fetch(`http://localhost:5260/api/PontoTuristico?busca=${encodeURIComponent(trimmed)}`);
+
+			if (!response.ok) {
+				throw new Error("Busca Falhou");
+			}
+
+			const data: AttractionType[] = await response.json();
+
+			if (data.length === 0) {
+				navigate("/notfound");
+			}
+
+			return navigate(`/pontos?busca=${encodeURIComponent(trimmed)}`, { state: { results: data } });
+
+		} catch (error) {
+			console.error("Erro na busca:", error);
+			navigate("/notfound");
+		} finally {
+			setIsLoading(false);
+		}
+
 	}
 
 	return (

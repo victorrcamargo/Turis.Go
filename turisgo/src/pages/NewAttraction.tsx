@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router";
-import { Button } from "../button/Button";
-import LocationForm from "../LocationForm/LocationForm";
-import { ArrowLeft, PlusCircle } from "phosphor-react";
 
-export default function NewAttraction() {
+import { ArrowLeft, PlusCircle } from "phosphor-react";
+import LocationForm from "../components/LocationForm/LocationForm";
+import { Button } from "../components/button/Button";
+
+export function NewAttraction() {
 	const navigate = useNavigate();
 	return (
 		<div className="w-full h-[800px] flex flex-col items-center justify-center">

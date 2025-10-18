@@ -21,5 +21,7 @@ namespace TurisgoAPI.Services
         public Task UpdateAsync(PontoTuristico ponto) => _repository.UpdateAsync(ponto);
 
         public Task DeleteAsync(int id) => _repository.DeleteAsync(id);
+
+        public Task<List<PontoTuristico>> GetBySearchAsync(string? termo) => _repository.GetBySearchAsync(termo);
     }
 }

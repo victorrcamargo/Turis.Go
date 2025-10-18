@@ -12,46 +12,46 @@ interface City {
 }
 
 export default function LocationForm() {
-	const [estados, setEstados] = useState<State[]>([]);
-	const [cidades, setCidades] = useState<City[]>([]);
-	const [estadoSelecionado, setEstadoSelecionado] = useState<string>("");
-	const [cidadeSelecionada, setCidadeSelecionada] = useState<string>("");
+	const [states, setStates] = useState<State[]>([]);
+	const [cities, setCities] = useState<City[]>([]);
+	const [selectedState, setSelectedState] = useState<string>("");
+	const [selectedCity, setSelectedcity] = useState<string>("");
 
 	useEffect(() => {
 		fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
 			.then((res) => res.json())
-			.then((data: State[]) => setEstados(data))
+			.then((data: State[]) => setStates(data))
 			.catch((err) => console.error("Erro ao carregar estados:", err));
 	}, []);
 
 	useEffect(() => {
-		if (!estadoSelecionado) {
-			setCidades([]);
+		if (!selectedState) {
+			setCities([]);
 			return;
 		}
 
-		fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoSelecionado}/municipios`)
+		fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`)
 			.then((res) => res.json())
-			.then((data: City[]) => setCidades(data))
+			.then((data: City[]) => setCities(data))
 			.catch((err) => console.error("Erro ao carregar cidades:", err));
-	}, [estadoSelecionado]);
+	}, [selectedState]);
 
 	return (
 		<div className="flex flex-1 justify-between items-center gap-4">
 			<div>
 				<label className="block text-sm font-medium">Estado</label>
 				<select
-					value={estadoSelecionado}
+					value={selectedState}
 					onChange={(e) => {
-						setEstadoSelecionado(e.target.value);
-						setCidadeSelecionada("");
+						setSelectedState(e.target.value);
+						setSelectedcity("");
 					}}
 					className="select w-full"
 				>
 					<option value="">Selecione</option>
-					{estados.map((estado) => (
-						<option key={estado.id} value={estado.sigla}>
-							{estado.sigla}
+					{states.map((state) => (
+						<option key={state.id} value={state.sigla}>
+							{state.sigla}
 						</option>
 					))}
 				</select>
@@ -60,15 +60,15 @@ export default function LocationForm() {
 			<div className="w-90">
 				<label className="block text-sm font-medium">Cidade</label>
 				<select
-					value={cidadeSelecionada}
-					onChange={(e) => setCidadeSelecionada(e.target.value)}
-					disabled={!estadoSelecionado}
+					value={selectedCity}
+					onChange={(e) => setSelectedcity(e.target.value)}
+					disabled={!selectedState}
 					className="select w-full"
 				>
 					<option value="">Selecione...</option>
-					{cidades.map((cidade) => (
-						<option key={cidade.id} value={cidade.nome}>
-							{cidade.nome}
+					{cities.map((city) => (
+						<option key={city.id} value={city.nome}>
+							{city.nome}
 						</option>
 					))}
 				</select>

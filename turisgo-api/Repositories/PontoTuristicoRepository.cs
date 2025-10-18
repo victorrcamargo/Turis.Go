@@ -44,5 +44,26 @@ namespace TurisgoAPI.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<List<PontoTuristico>> GetBySearchAsync(string? termo)
+        {
+            var query = _context.PontosTuristicos.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(termo))
+            {
+                termo = termo.ToLower();
+
+                query = query.Where(p =>
+                    p.Nome.ToLower().Contains(termo) ||
+                    p.Cidade.ToLower().Contains(termo) ||
+                    p.UF.ToLower().Contains(termo) ||
+                    p.Localizacao.ToLower().Contains(termo) ||
+                    (p.Referencia != null && p.Referencia.ToLower().Contains(termo)) ||
+                    (p.Descritivo != null && p.Descritivo.ToLower().Contains(termo))
+                );
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }

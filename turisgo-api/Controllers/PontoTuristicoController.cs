@@ -16,10 +16,16 @@ namespace TurisgoAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] string? busca = null)
         {
-            var pontos = await _service.GetAllAsync();
-            return Ok(pontos);
+            if (busca == null)
+            {
+                var pontos = await _service.GetAllAsync();
+                return Ok(pontos);
+            }
+
+            var pontosFiltrados = await _service.GetBySearchAsync(busca);
+            return Ok(pontosFiltrados);
         }
 
         [HttpGet("{id}")]
