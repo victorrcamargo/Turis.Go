@@ -6,8 +6,6 @@ namespace TurisgoAPI.Models
 
         public string Nome { get; set; } = string.Empty;
 
-        public string Localizacao { get; set; } = string.Empty;
-
         public string UF { get; set; } = string.Empty;
 
         public string Cidade { get; set; } = string.Empty;

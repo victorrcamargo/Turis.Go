@@ -24,7 +24,8 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins("http://localhost:5173")
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
         });
 });
 
@@ -42,7 +43,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 app.UseAuthorization();
 app.MapControllers();

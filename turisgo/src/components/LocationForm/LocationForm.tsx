@@ -5,13 +5,16 @@ interface State {
 	nome: string;
 	sigla: string;
 }
-
 interface City {
 	id: number;
 	nome: string;
 }
 
-export default function LocationForm() {
+interface LocationFormProps {
+	onChange?: (uf: string, city: string) => void;
+}
+
+export default function LocationForm({ onChange }: LocationFormProps) {
 	const [states, setStates] = useState<State[]>([]);
 	const [cities, setCities] = useState<City[]>([]);
 	const [selectedState, setSelectedState] = useState<string>("");
@@ -27,6 +30,7 @@ export default function LocationForm() {
 	useEffect(() => {
 		if (!selectedState) {
 			setCities([]);
+			if (onChange) onChange("", "");
 			return;
 		}
 
@@ -35,6 +39,10 @@ export default function LocationForm() {
 			.then((data: City[]) => setCities(data))
 			.catch((err) => console.error("Erro ao carregar cidades:", err));
 	}, [selectedState]);
+
+	useEffect(() => {
+		if (onChange) onChange(selectedState, selectedCity);
+	}, [selectedState, selectedCity]);
 
 	return (
 		<div className="flex flex-1 justify-between items-center gap-4">

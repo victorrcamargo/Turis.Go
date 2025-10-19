@@ -57,7 +57,6 @@ namespace TurisgoAPI.Repositories
                     p.Nome.ToLower().Contains(termo) ||
                     p.Cidade.ToLower().Contains(termo) ||
                     p.UF.ToLower().Contains(termo) ||
-                    p.Localizacao.ToLower().Contains(termo) ||
                     (p.Referencia != null && p.Referencia.ToLower().Contains(termo)) ||
                     (p.Descritivo != null && p.Descritivo.ToLower().Contains(termo))
                 );

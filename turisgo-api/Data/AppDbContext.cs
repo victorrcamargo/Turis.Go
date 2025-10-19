@@ -20,9 +20,6 @@ namespace TurisgoAPI.Data
                         .IsRequired()
                         .HasMaxLength(150);
 
-                        entity.Property(p => p.Localizacao)
-                        .HasMaxLength(255);
-
                         entity.Property(p => p.Cidade)
                         .HasMaxLength(100);
 

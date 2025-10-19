@@ -13,7 +13,6 @@ namespace TurisgoAPI.Data
                     new PontoTuristico
                     {
                         Nome = "Cristo Redentor",
-                        Localizacao = "Parque Nacional da Tijuca",
                         UF = "RJ",
                         Cidade = "Rio de Janeiro",
                         Referencia = "Morro do Corcovado",
@@ -22,7 +21,6 @@ namespace TurisgoAPI.Data
                     new PontoTuristico
                     {
                         Nome = "Cataratas do Iguaçu",
-                        Localizacao = "Parque Nacional do Iguaçu",
                         UF = "PR",
                         Cidade = "Foz do Iguaçu",
                         Referencia = "Fronteira com a Argentina",
@@ -31,7 +29,6 @@ namespace TurisgoAPI.Data
                     new PontoTuristico
                     {
                         Nome = "Pelourinho",
-                        Localizacao = "Centro Histórico de Salvador",
                         UF = "BA",
                         Cidade = "Salvador",
                         Referencia = "Próximo à Igreja de São Francisco",
