@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 
 import { ArrowLeft, PlusCircle } from "phosphor-react";
-import LocationForm from "../components/LocationForm/LocationForm";
+import LocationForm from "../components/locationForm/LocationForm";
 import { Button } from "../components/button/Button";
 import { useState } from "react";
 
@@ -15,6 +15,11 @@ export function NewAttraction() {
 	const [description, setDescription] = useState("");
 
 	const handleSubmit = async () => {
+		if (!name.trim() || !uf.trim() || !city.trim() || !description.trim()) {
+			alert("Preencha todos os campos obrigatórios antes de salvar.");
+			return;
+		}
+
 		const payload = {
 			nome: name,
 			uf: uf,
@@ -48,70 +53,73 @@ export function NewAttraction() {
 	};
 
 	return (
-		<div className="w-full h-[800px] flex flex-col items-center justify-center">
+		<div className="container mx-auto px-4 py-6 flex flex-col items-center justify-center">
+			<h1 className="text-xl md:text-2xl font-medium text-[#6C63FF] mb-6">
+				Cadastre o ponto desejado
+			</h1>
 
-			<h1 className="w-full text-center text-2xl ">Cadastre o ponto desejado</h1>
+			<div className="w-full max-w-md space-y-4">
+				<div className="w-full">
+					<input
+						type="text"
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+						placeholder="Nome"
+						className="input w-full"
+					/>
+				</div>
 
-			<div className="w-1/3 py-2 flex items-center justify-center">
-				<input
-					type="text"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-					placeholder="Nome"
-					className="input w-full"
-				/>
-			</div>
+				<div className="w-full">
+					<LocationForm
+						onChange={(uf, selectedCity) => {
+							setUf(uf);
+							setCity(selectedCity);
+						}}
+					/>
+				</div>
 
-			<div className="w-1/3 py-2 flex items-center justify-center">
-				<LocationForm onChange={(uf, selectedCity) => {
-					setUf(uf);
-					setCity(selectedCity);
-				}} />
-			</div>
+				<div className="w-full">
+					<input
+						type="text"
+						value={reference}
+						onChange={(e) => setReference(e.target.value)}
+						placeholder="Referência"
+						className="input w-full"
+					/>
+				</div>
 
-			<div className="w-1/3 py-2 flex items-center justify-center">
-				<input
-					type="text"
-					value={reference}
-					onChange={(e) => setReference(e.target.value)}
-					placeholder="Referência"
-					className="input w-full"
-				/>
-			</div>
+				<div className="w-full">
+					<textarea
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+						placeholder="Descrição"
+						className="textarea w-full h-20"
+					/>
+				</div>
 
-			<div className="w-1/3 py-2 flex items-center justify-center">
-				<textarea
-					value={description}
-					onChange={(e) => setDescription(e.target.value)}
-					placeholder="Descrição"
-					className="textarea h-24 w-full"
-				/>
-			</div>
+				<div className="w-full flex items-center justify-between pt-4">
+					<Button
+						buttonTitle={
+							<div className="flex items-center gap-2">
+								<ArrowLeft size={20} />
+								<span>Voltar</span>
+							</div>
+						}
+						onClick={() => navigate("/")}
+					/>
 
-			<div className="w-1/3 py-2 flex items-center justify-between">
-				<Button
-					buttonTitle={
-						<>
-							<ArrowLeft size={24} />
-							Voltar
-						</>
-					}
-					onClick={
-						() => navigate("/")
-					}
-				/>
-
-				<Button
-					type="button"
-					onClick={handleSubmit}
-					buttonTitle={
-						<>
-							<PlusCircle size={24} />
-							Salvar
-						</>
-					}
-				/>
+					<Button
+						type="button"
+						onClick={handleSubmit}
+						buttonTitle={
+							<div className="flex items-center gap-2">
+								<PlusCircle size={20} />
+								<span>Salvar</span>
+							</div>
+						}
+					/>
+				</div>
 			</div>
 		</div>
-	)
+	);
 }

@@ -1,18 +1,5 @@
 import { useEffect, useState } from "react";
-
-interface State {
-	id: number;
-	nome: string;
-	sigla: string;
-}
-interface City {
-	id: number;
-	nome: string;
-}
-
-interface LocationFormProps {
-	onChange?: (uf: string, city: string) => void;
-}
+import type { State, City, LocationFormProps } from "../../types/Attraction";
 
 export default function LocationForm({ onChange }: LocationFormProps) {
 	const [states, setStates] = useState<State[]>([]);
@@ -47,14 +34,13 @@ export default function LocationForm({ onChange }: LocationFormProps) {
 	return (
 		<div className="flex flex-1 justify-between items-center gap-4">
 			<div>
-				<label className="block text-sm font-medium">Estado</label>
 				<select
 					value={selectedState}
 					onChange={(e) => {
 						setSelectedState(e.target.value);
 						setSelectedcity("");
 					}}
-					className="select w-full"
+					className="select w-[80px]"
 				>
 					<option value="">Selecione</option>
 					{states.map((state) => (
@@ -66,7 +52,6 @@ export default function LocationForm({ onChange }: LocationFormProps) {
 			</div>
 
 			<div className="w-90">
-				<label className="block text-sm font-medium">Cidade</label>
 				<select
 					value={selectedCity}
 					onChange={(e) => setSelectedcity(e.target.value)}

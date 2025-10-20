@@ -1,6 +1,10 @@
+import { ArrowUUpLeft } from 'phosphor-react';
 import TourSvg from '../assets/dog-not-found.svg';
+import { Button } from '../components/button/Button';
+import { useNavigate } from 'react-router';
 
 export function NotFound() {
+	const navigate = useNavigate();
 	return (
 		<div className="flex flex-col items-center text-center px-4 mt-20">
 			<div className="mb-10">
@@ -17,12 +21,14 @@ export function NotFound() {
 				Parece que o ponto turístico que você procurou não existe ou foi removido.
 				Tente uma nova pesquisa ou volte para a página inicial.
 			</p>
-			<a
-				href="/"
-				className="px-6 py-3 bg-[#6C63FF] text-white font-medium rounded-full shadow-md hover:opacity-90 transition-colors"
-			>
-				Voltar ao início
-			</a>
+			<Button
+				buttonTitle={
+					<>
+						<ArrowUUpLeft size={32} /> Voltar ao início
+					</>
+				}
+				onClick={() => navigate("/")}
+			/>
 		</div>
 	)
 }

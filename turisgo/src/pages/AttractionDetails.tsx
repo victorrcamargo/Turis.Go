@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router";
 import type { AttractionType } from "../types/Attraction";
-import { ArrowLeft } from "phosphor-react";
+import { ArrowLeft, Trash } from "phosphor-react";
 import { Button } from "../components/button/Button";
 
 export function AttractionDetails() {
@@ -55,16 +55,28 @@ export function AttractionDetails() {
 
 	if (!attraction) {
 		navigate("/notFound");
+		return null;
 	}
 
 	return (
 		<div className="container mx-auto px-4 py-8 text-left">
-			<Link to="/" className="text-[#6C63FF] font-medium underline">
-				<span>
-					<ArrowLeft size={25} className="inline mb-1 mr-1" />
-					Voltar
-				</span>
-			</Link>
+			<div className="w-full flex justify-between items-center mb-4">
+				<Button
+					type="button"
+					onClick={() => navigate('/')}
+					buttonTitle={
+						<>
+							<ArrowLeft size={25} className="inline mb-1 mr-1" />
+							Voltar
+						</>
+					}
+				/>
+				<Button
+					type="button"
+					onClick={handleDelete}
+					buttonTitle={<Trash size={32} />}
+				/>
+			</div>
 
 			<h1 className="text-3xl font-bold text-[#6C63FF] mt-4 mb-2">{attraction.nome}</h1>
 			<p className="text-gray-600 mb-2">{attraction.descritivo}</p>
@@ -76,12 +88,6 @@ export function AttractionDetails() {
 			{attraction.referencia && (
 				<p className="text-gray-400 text-sm">Referência: {attraction.referencia}</p>
 			)}
-
-			<Button
-				type="button"
-				onClick={handleDelete}
-				buttonTitle="Excluir Ponto Turístico"
-			/>
 		</div>
 	);
 }
